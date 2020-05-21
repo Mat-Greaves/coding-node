@@ -1,11 +1,15 @@
 const express = require('express');
-
-const routes = require('./routes');
+const connectDB = require('./config/db');
+const routes = require('./routes/index');
 const { ValidationError, NotFoundError } = require('./lib/errors');
-
 const app = express();
 
-app.use(express.json({ limit: '100kb' }));
+//connect database
+connectDB();
+
+//Init moddleware
+app.use(express.json({ extended: false }));
+
 app.use('/', routes);
 app.use('/', (err, req, res, next) => {
   // default to 500 internal server error unless we've defined a specific error
@@ -17,8 +21,12 @@ app.use('/', (err, req, res, next) => {
     code = 404;
   }
   res.status(code).json({
-    message: err.message,
+    message: err.message
   });
 });
 
+const PORT = process.env.PORT_ENV || 3000;
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
 module.exports = app;
