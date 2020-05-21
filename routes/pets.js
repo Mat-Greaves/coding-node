@@ -45,21 +45,17 @@ router.post(
     };
     try {
       let pets = await Pets.findOne({ name: req.body.name });
-      console.log('before ', pets);
       if (pets) {
         pets = await Pets.findOneAndUpdate(
-          { name: 'dog' },
+          { name: req.body.name },
           { $set: petsFileds }
         );
-        console.log('inside', pets);
-        const pet = await pets.save();
-        console.log('inside after update', pet);
-        return res.json(pet);
+        pets = await pets.save();
+        return res.json(pets);
       }
       pets = new Pets(petsFileds);
-      console.log('outisde', pets);
-      await pets.save();
-      return res.json(pets);
+      let petss = await pets.save();
+      return res.json(petss);
     } catch (err) {
       return res.status(500).send(`Server error :${err.message}`);
     }
