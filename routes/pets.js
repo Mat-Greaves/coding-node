@@ -1,3 +1,5 @@
+'use strict';
+const auth = require('../middlewares/auth');
 const express = require('express');
 const Joi = require('@hapi/joi');
 const Pets = require('../models/pets');
@@ -39,19 +41,24 @@ router.get('/:id', async (req, res) => {
 //@access Privet
 router.post(
   '/',
-  validateBody(
-    Joi.object().keys({
-      name: Joi.string()
-        .required()
-        .description('Pets name'),
-      age: Joi.number()
-        .integer()
-        .description('Pets age'),
-      color: Joi.string()
-        .required()
-        .description('Pets color')
-    })
-  ),
+  //[
+  //auth,
+  [
+    validateBody(
+      Joi.object().keys({
+        name: Joi.string()
+          .required()
+          .description('Pets name'),
+        age: Joi.number()
+          .integer()
+          .description('Pets age'),
+        color: Joi.string()
+          .required()
+          .description('Pets color')
+      })
+    )
+  ],
+  //]
   async (req, res) => {
     const { name, age, color } = req.body;
     const petsFileds = {
