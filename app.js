@@ -23,6 +23,7 @@ app.use('/', (err, req, res, next) => {
   res.status(code).json({
     message: err.message
   });
+  next();
 });
 
 const PORT = process.env.PORT_ENV || 3000;
