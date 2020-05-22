@@ -66,7 +66,6 @@ router.post(
       age,
       color
     };
-    console.log('petsfield', petsFileds);
     try {
       let pets = await Pets.findOneAndUpdate(
         { name: req.body.name },
