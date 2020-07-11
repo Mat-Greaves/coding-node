@@ -1,3 +1,6 @@
+# v 0.0.2
+Pets API implemented for GET, CREATE, DELETE operations.
+
 # coding-node
 This is a repository for applicants to the Network Software submit coding exercises for review.
 

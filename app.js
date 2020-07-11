@@ -5,6 +5,8 @@ const { ValidationError, NotFoundError } = require('./lib/errors');
 
 const app = express();
 
+app.listen(8080);
+
 app.use(express.json({ limit: '100kb' }));
 app.use('/', routes);
 app.use('/', (err, req, res, next) => {
